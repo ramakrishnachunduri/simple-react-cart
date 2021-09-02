@@ -22,4 +22,6 @@ function App() {
   );
 }
 
+//store.subscribe(() => {console.log('test'); console.log(store.getState()); })
+
 export default App;
