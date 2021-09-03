@@ -1,8 +1,8 @@
 import {createStore} from 'redux'
 
-const str = (state = 5, action,hello) => { 
+const str = (state = 0, action) => { 
     
-    console.log(arguments[0]);
+    console.log(state);
     
     return state
 }
