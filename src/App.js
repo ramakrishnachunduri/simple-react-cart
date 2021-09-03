@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Cart } from './Cart';
 import { AppLayout } from './Components/AppLayout';
 import { NavigationBar } from './Components/Navigationbar';
@@ -8,19 +8,17 @@ import { ProductList } from './ProductList';
 function App() {
   return (
     <React.Fragment>
-       <Router>
+       <BrowserRouter>
           <AppLayout>
-          <NavigationBar />
+          <NavigationBar/>
             <Switch>
               <Route exact path="/" component={ProductList} />
-              <Route exact path="/" component={Cart} />
+              <Route exact path="/cart" component={Cart} />
             </Switch>
           </AppLayout>
-        </Router>
+        </BrowserRouter>
     </React.Fragment>
   );
 }
-
-//store.subscribe(() => {console.log('test'); console.log(store.getState()); })
 
 export default App;
