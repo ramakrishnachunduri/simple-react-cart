@@ -35,17 +35,24 @@ export class NavigationBar extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
+    unsubscribe = () => {};
+    componentDidMount()
+    {
+        this.unsubscribe = store.subscribe(this.handleChange)
+    }
+    componentWillUnmount()
+    {
+        this.unsubscribe();
+    }
 
     handleChange()
     {
         const cartedProducts = store.getState();
         const v=(cartedProducts.reduce((a, b) => a + b.quantity,0));
         this.setState({cartCount:v})
-        console.log(v);
     }
 
-    render() {
-        store.subscribe(this.handleChange);
+    render() {        
         return (
         <StyledNavBar bg="primary" variant="dark">
                 <Navbar.Brand as={Link} to="/" className="me-auto">SimplCart</Navbar.Brand>

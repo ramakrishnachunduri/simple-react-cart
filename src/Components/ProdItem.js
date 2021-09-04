@@ -27,7 +27,7 @@ class ProdItem extends React.Component {
             <Col sm={8} className="nameClass">{this.props.productToRender.name}</Col>
             <Col sm={4}>
                 <Button variant="primary" className="float-end" onClick={this.handleClick}>Add</Button>
-                <span className="priceClass float-end">${this.props.productToRender.price}</span>
+                <span className="priceClass float-end">${this.props.productToRender.price.toFixed(2)}</span>
             </Col>
         </Row>
         </StyledListGroupItem>
