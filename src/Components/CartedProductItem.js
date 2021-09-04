@@ -10,8 +10,9 @@ export const StyledListGroupItem = styled(ListGroupItem)`
   .itemPriceCalClass { padding:10px;}
   .btn:focus { outline: none; box-shadow: none; }
   .itemFinalPriceClass,.savedAmountClass {border-top:solid thin #DDD; padding:10px;}
-  .savedAmountClass { color:red; }
-  {margin:5px 5px 0px 5px; border-color:red;}
+  .savedAmountClass .float-end { color:red; }
+  .savedAmountClass { color:green; }
+  {margin:5px 5px 0px 5px; border-color:#0d6efd;}
   `;
 
 class CartedProductItem extends React.Component {
@@ -34,9 +35,8 @@ class CartedProductItem extends React.Component {
     return (
       <StyledListGroupItem key={currentProduct.id} className="border-1">
         <Row className="align-items-end">
-          <Col sm={4} className="nameClass">{currentProduct.name}</Col>
-          <Col sm={4} className="priceClass">${currentProduct.price.toFixed(2)}</Col>
-          <Col sm={4}>
+          <Col sm={6} className="nameClass">{currentProduct.name}</Col>
+          <Col sm={6}>
             <Button variant="outline-primary" className="float-end" onClick={this.handleRemoveClick}>-</Button>
             <span className="quantityClass float-end">{currentProduct.quantity}</span>
             <Button variant="primary" className="float-end" onClick={this.handleAddClick}>+</Button>
@@ -49,6 +49,7 @@ class CartedProductItem extends React.Component {
         </Col></Row>
         {currentProduct.savedAmount > 0 &&
           <Row className="savedAmountClass"><Col sm={12}>
+             Applied {currentProduct.specialofferApplicable ? 'Special Offer' : 'Offer'}, {currentProduct.offerDescription}
             <span className="float-end">
               Savings ${(currentProduct.savedAmount).toFixed(2)}
             </span>

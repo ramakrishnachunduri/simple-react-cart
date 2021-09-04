@@ -16,7 +16,7 @@ const CartedProductReducer = (state=[],action) => {
         case 'Add-to-cart':
             if(found === undefined)
             {
-                const newCartItem = {...action.payload,quantity:1,savedAmount:0}
+                const newCartItem = {...action.payload,quantity:1,savedAmount:0,offerDescription:""}
                 cartedProducts.push(newCartItem);
             }
             else

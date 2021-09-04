@@ -1,2 +1,2 @@
-const Product = (id,name,price) => { return { id,name,price } }
+const Product = (id,name,price,specialofferApplicable) => { return { id,name,price,specialofferApplicable } }
 export default Product
