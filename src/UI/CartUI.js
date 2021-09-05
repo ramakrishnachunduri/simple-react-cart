@@ -45,7 +45,7 @@ export class CartUI extends React.Component {
             <p>Savings : </p>
             <p>${(this.state.cartSavings).toFixed(2)}</p>
         </div>
-        <div className="px-4 flex justify-between font-semibold">
+        <div className="px-4 flex justify-between font-semibold mb-2">
             <p>Total Amount : </p>
             <p>${(this.state.cartTotal).toFixed(2)}</p>
         </div>
