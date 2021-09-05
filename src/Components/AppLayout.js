@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const AppLayout = (props) => (
-  <Container fluid style={{ padding: 0 }}>
-    {props.children}
-  </Container>
+  <div className="container mx-auto p-0 min-w-full h-screen">
+  {props.children}
+  </div>
 )

@@ -9,7 +9,7 @@ function App() {
   return (
     <React.Fragment>
        <BrowserRouter>
-          <AppLayout>
+          <AppLayout className="p-0 m-10">
           <NavigationBar/>
             <Switch>
               <Route exact path="/" component={ProductListUI} />
