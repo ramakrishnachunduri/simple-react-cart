@@ -11,7 +11,7 @@ export const updateSavings = (cartedProducts) => {
         const foundSoup = cartedProducts.find(product => product.id === 4);
         if(foundSoup !== undefined)
         {
-            if( foundBread.quantity === 1 && foundSoup.quantity === 1)
+            if( foundBread.quantity >= 1 && foundSoup.quantity === 1)
             {
                 foundBread.savedAmount = foundBread.price * 0.5;
                 foundBread.appliedOfferId = 1
