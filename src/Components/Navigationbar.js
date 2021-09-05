@@ -58,8 +58,7 @@ export class NavigationBar extends React.Component {
                 <Navbar.Brand as={Link} to="/" className="me-auto">SimplCart</Navbar.Brand>
                 <Nav>
                     <Nav.Link as={Link} to="/cart">
-                        <span>{this.state.cartCount}</span>
-                        <CartIcon src="./cart_icon.png"/>
+                        {this.state.cartCount}<CartIcon className="display-inline" src="./cart_icon.png"/>
                     </Nav.Link>
                 </Nav>
         </StyledNavBar>

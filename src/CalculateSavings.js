@@ -39,7 +39,7 @@ export const updateSavings = (cartedProducts) => {
         }
         else
         {
-            if(foundCheese.quantity == 3)
+            if(foundCheese.quantity === 3)
             {
                 foundCheese.savedAmount = foundCheese.price;
                 foundCheese.offerDescription = "Buy 3 cheeses and get one for free";
