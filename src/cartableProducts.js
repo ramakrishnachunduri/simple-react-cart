@@ -9,7 +9,7 @@ const CartableProducts = [
     Product(3,"Cheese",0.90,[
         {offerId:1,offerDescription:"Buy 2 cheeses at price of one",isOfferSpecial:true},
         {offerId:2,offerDescription:"Buy 3 cheeses and get one for free",isOfferSpecial:false},
-        {offerId:3,offerDescription:"Buy Over 4 cheeses and get two for free",isOfferSpecial:false}
+        {offerId:3,offerDescription:"Buy 4 or more cheeses and get two for free",isOfferSpecial:false}
     ]),
     Product(4,"Soup",0.60,[]),
     Product(5,"Butter",1.20,[]),

@@ -1,14 +1,7 @@
 import React from 'react';
-import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import store from "../store";
 import CartedProductItem from '../Components/CartedProductItem';
-import styled from 'styled-components';
-
-const StyledFinalPriceItem = styled(ListGroupItem)`
-  {margin:5px; border:none; padding:10px; }
-  .rowheading { font-weight : 700 }
-  .row {margin:10px 0px;}
-  `;
+import { Link } from 'react-router-dom';
 
 export class CartUI extends React.Component {
     state = {cartTotal:0,cartSavings:0,cartItemPriceTotal:0}
@@ -40,36 +33,52 @@ export class CartUI extends React.Component {
     {
         this.calculateCartValues();
     }
+    
+    renderTotalCartPricing()
+    {
+        return(<>
+        <div className="px-4 flex justify-between font-semibold">
+            <p>SubTotal :</p>
+            <p>${(this.state.cartItemPriceTotal).toFixed(2)}</p>
+        </div>
+        <div className="px-4 flex justify-between font-semibold">
+            <p>Savings : </p>
+            <p>${(this.state.cartSavings).toFixed(2)}</p>
+        </div>
+        <div className="px-4 flex justify-between font-semibold">
+            <p>Total Amount : </p>
+            <p>${(this.state.cartTotal).toFixed(2)}</p>
+        </div>
+        </>);
+    }
+    renderCartItems()
+    {
+        const cartedProducts = store.getState();
+        return (<ul className="px-2 my-2 divide-y divide-gray-200">
+                    {cartedProducts.map(product => (
+                            <CartedProductItem key={product.id} productToRender={product}></CartedProductItem>
+                    ))}
+                </ul>);
+    }
+    renderNoItemsInCart()
+    {
+        return (<>
+        <div className="px-4 relative h-1/2 text-center justify-center">
+            <span className="text-lg md:text-2xl absolute font-semibold inset-x-0 bottom-0">No items in cart, please check our <Link as={Link} to="/" className="no-underline rounded-lg bg-blue-500 py-2 px-3 text-white">Catalogue</Link> to order a delicious meal</span>
+        </div>
+        </>);
+    }
+
     render() {
         const cartedProducts = store.getState();
-    return (
-        <>
-        <ListGroup>
-            {cartedProducts.map(product => (
-                    <CartedProductItem key={product.id} productToRender={product}></CartedProductItem>
-            ))}
-        </ListGroup>
-        <ListGroup>
-            <StyledFinalPriceItem> 
-                <Row><Col sm={6} ><span className="rowheading">
-                    SubTotal:
-                </span></Col><Col sm={6} ><span className="float-end">
-                    ${(this.state.cartItemPriceTotal).toFixed(2)}
-                </span></Col></Row>
-
-                <Row><Col sm={6} ><span className="rowheading">
-                    Savings:
-                </span></Col><Col sm={6} ><span className="float-end">
-                ${(this.state.cartSavings).toFixed(2)}
-                </span></Col></Row>
-
-                <Row><Col sm={6} ><span className="rowheading">
-                    Total Amount:
-                </span></Col><Col sm={6} ><span className="float-end">
-                    ${(this.state.cartTotal).toFixed(2)}
-                </span></Col></Row>
-            </StyledFinalPriceItem>
-        </ListGroup>
-        </>
-    )}
+        if(cartedProducts.length <= 0)
+        {
+            //No Items in cart render no items
+            return (<>{this.renderNoItemsInCart()}</>);
+        }
+        return (<>
+            {this.renderCartItems()}
+            {this.renderTotalCartPricing()}
+        </>);
+    }
 }

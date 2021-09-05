@@ -1,19 +1,6 @@
 import React from "react";
-import { Button, Col, ListGroupItem, Row } from "react-bootstrap";
-import styled from 'styled-components';
 import { AddToCart, RemoveFromCart } from "../Reducers/CartedProduct";
 import store from "../store";
-
-export const StyledListGroupItem = styled(ListGroupItem)`
-  .nameClass { font-weight:bold }
-  .quantityClass { margin : 6px 10px }
-  .itemPriceCalClass { padding:10px;}
-  .btn:focus { outline: none; box-shadow: none; }
-  .itemFinalPriceClass,.savedAmountClass {border-top:solid thin #DDD; padding:10px;}
-  .savedAmountClass .float-end { color:red; }
-  .savedAmountClass { color:green; }
-  {margin:5px 5px 0px 5px; border-color:#0d6efd;}
-  `;
 
 class CartedProductItem extends React.Component {
   constructor(productToRender) {
@@ -30,41 +17,45 @@ class CartedProductItem extends React.Component {
     store.dispatch(RemoveFromCart(this.props.productToRender));
   }
 
-  render() {
-    const currentProduct = this.props.productToRender
+  renderSavingsAmount()
+  {
+    const currentProduct = this.props.productToRender;
     const foundOffer = currentProduct.offers.find(offer => offer.offerId === currentProduct.appliedOfferId);
     return (
-      <StyledListGroupItem key={currentProduct.id} className="border-1">
-        <Row className="align-items-end">
-          <Col sm={6} className="nameClass">{currentProduct.name}</Col>
-          <Col sm={6}>
-            <Button variant="outline-primary" className="float-end" onClick={this.handleRemoveClick}>-</Button>
-            <span className="quantityClass float-end">{currentProduct.quantity}</span>
-            <Button variant="primary" className="float-end" onClick={this.handleAddClick}>+</Button>
-          </Col>
-        </Row>
-        <Row className="itemPriceCalClass"><Col sm={12}>
-          <span className="float-end">
-            Item price ${currentProduct.price.toFixed(2)} * {currentProduct.quantity} = ${(currentProduct.price * currentProduct.quantity).toFixed(2)}
-          </span>
-        </Col></Row>
-        {currentProduct.savedAmount > 0 &&
-          <Row className="savedAmountClass">
-            <Col sm={12} md={6}>
-              {( foundOffer !== undefined ) ? ((foundOffer.isOfferSpecial)?'Special offer ':'Offer ') + foundOffer.offerDescription : ''}
-            </Col>
-            <Col sm={12} md={6}>
-            <span className="float-end">
-              Savings ${(currentProduct.savedAmount).toFixed(2)}
-            </span>
-          </Col></Row>
-        }
-        <Row className="itemFinalPriceClass"><Col sm={12}>
-          <span className="float-end">
-            Item cost ${((currentProduct.price * currentProduct.quantity)-currentProduct.savedAmount).toFixed(2)}
-          </span>
-        </Col></Row>
-      </StyledListGroupItem>
+      <>
+      {currentProduct.savedAmount > 0 &&
+        <div className="flex flex-wrap mr-1 border-b-2 py-1 justify-start md:justify-between">
+          <div className="pl-3 py-0 text-sm">
+            {( foundOffer !== undefined ) ? ((foundOffer.isOfferSpecial)?'Special offer ':'Offer ') + ': ' + foundOffer.offerDescription : ''}
+          </div>
+          <div className="text-red-500 text-right flex-none w-full md:w-auto">&nbsp;Savings ${(currentProduct.savedAmount).toFixed(2)}</div>
+        </div>
+      }
+      </>
+    );
+  }
+
+  render() {
+    const currentProduct = this.props.productToRender
+    return (
+      <li className="border-1 mb-3 p-1 rounded-lg border-blue-400 divide-blue-400">
+          <div className="flex justify-between text-base text-gray-900">
+              <div className="my-2 pl-3 font-medium">{currentProduct.name}</div>
+              <div className="flex mr-1">
+                  <p className="my-2 mx-2">${this.props.productToRender.price.toFixed(2)}</p>
+                  <button className="ml-2 px-2 border-1 border-blue-500 rounded-lg text-black text-sm m-1 active:outline-0" onClick={this.handleRemoveClick}>-</button>
+                  <p className="my-2 mx-2">{currentProduct.quantity}</p>
+                  <button className="ml-2 px-2 bg-blue-500 rounded-lg text-white text-sm m-1 active:outline-0" onClick={this.handleAddClick}>+</button>
+              </div>
+          </div>
+          <div className="flex justify-end mr-2 text-base text-gray-900 border-b-2 py-1">
+              Item price ${currentProduct.price.toFixed(2)} * {currentProduct.quantity} = ${(currentProduct.price * currentProduct.quantity).toFixed(2)}
+          </div>
+          {this.renderSavingsAmount()}
+          <div className="flex justify-end mr-2 text-base text-gray-900 py-1">
+              Item cost ${((currentProduct.price * currentProduct.quantity)-currentProduct.savedAmount).toFixed(2)}
+          </div>
+      </li>
     );
   }
 }
