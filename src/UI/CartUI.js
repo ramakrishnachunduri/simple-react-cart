@@ -62,9 +62,13 @@ export class CartUI extends React.Component {
     }
     renderNoItemsInCart()
     {
+        const emptyCartMessage = "No items in cart, please check our catalogue to order a delicious meal";
         return (<>
         <div className="px-4 relative h-1/2 text-center justify-center">
-            <span className="text-lg md:text-2xl absolute font-semibold inset-x-0 bottom-0">No items in cart, please check our <Link as={Link} to="/" className="no-underline rounded-lg bg-blue-500 py-2 px-3 text-white">Catalogue</Link> to order a delicious meal</span>
+            <div className="absolute  inset-x-0 bottom-0 text-base md:text-xl font-semibold"> 
+                <span  className="md:mx-auto mx-2">{emptyCartMessage}</span>
+                <Link to="/" className="block w-28 mx-auto mt-3 rounded-lg bg-blue-500 py-1 text-white">Catalogue</Link>
+            </div>
         </div>
         </>);
     }
