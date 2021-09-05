@@ -1,14 +1,7 @@
 import React from "react";
-import { Button, Col, ListGroupItem, Row } from "react-bootstrap";
-import styled from 'styled-components';
+import { Button } from "react-bootstrap";
 import { AddToCart } from "../Reducers/CartedProduct";
 import store from "../store";
-
-export const StyledListGroupItem = styled(ListGroupItem)`
-  .nameClass { font-weight:bold }
-  .priceClass { margin : 6px 10px }
-  .btn:focus { outline: none; box-shadow: none; }
-  `;
 
 class ProdItem extends React.Component {
     constructor(productToRender) {
@@ -22,15 +15,22 @@ class ProdItem extends React.Component {
 
     render() {
       return (
-        <StyledListGroupItem key={this.props.productToRender.id}>
-        <Row className="align-items-end">
-            <Col sm={8} className="nameClass">{this.props.productToRender.name}</Col>
-            <Col sm={4}>
-                <Button variant="primary" className="float-end" onClick={this.handleClick}>Add</Button>
-                <span className="priceClass float-end">${this.props.productToRender.price.toFixed(2)}</span>
-            </Col>
-        </Row>
-        </StyledListGroupItem>
+        <li className="border-1 mb-3 p-1 rounded-lg border-blue-400 divide-blue-400">
+            <div className="flex justify-between text-base text-gray-900">
+                <div className="my-2 pl-3 font-medium">{this.props.productToRender.name}</div>
+                <div className="flex pt-1 mr-1">
+                    <p className="my-2">${this.props.productToRender.price.toFixed(2)}</p>
+                    <Button variant="primary" size="sm" className="ml-2 px-2 py-0" onClick={this.handleClick}>Add</Button>
+                </div>
+            </div>
+            <div className="flex justify-between text-base text-gray-900 py-2">
+                <ul className="list-disc">
+                    {this.props.productToRender.offers.map(offer => (
+                      <li key={offer.offerId}> {offer.isOfferSpecial ? 'Special Offer : ' : '' } {offer.offerDescription}</li>
+                     ))}
+                </ul>
+            </div>
+        </li>
       );
     }
   }

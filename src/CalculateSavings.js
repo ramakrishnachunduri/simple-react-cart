@@ -1,9 +1,11 @@
 export const updateSavings = (cartedProducts) => {
-    //reset savings to 0
-    cartedProducts.map((product)=>{product.savedAmount=0;product.savedAmount=0;return true;});
+    //reset savings and offers to none
+    cartedProducts.map((product)=>{product.savedAmount=0;
+        product.appliedOfferId=-1;
+        return true;});
 
     //has breads check for soup
-    const foundBread = cartedProducts.find(product => product.id === 1);
+    /*const foundBread = cartedProducts.find(product => product.id === 1);
     if(foundBread !== undefined)
     {
         const eligibleSoups = Math.floor(foundBread.quantity / 2);
@@ -23,32 +25,26 @@ export const updateSavings = (cartedProducts) => {
                 foundBread.offerDescription = "Add a soup and bread to get a bread free";
             }
         }
-    }
+    }*/
 
     //has cheese apply offer
     const foundCheese = cartedProducts.find(product => product.id === 3);
     if(foundCheese !== undefined )
     {
-        if(foundCheese.specialofferApplicable)
+        if(foundCheese.quantity === 3)
         {
-            if(foundCheese.quantity >= 2)
-            {
                 foundCheese.savedAmount = foundCheese.price;
-                foundCheese.offerDescription = "Buy 2 cheeses at price of one";
-            }
+                foundCheese.appliedOfferId = 2;
         }
-        else
+        else if(foundCheese.quantity >= 4)
         {
-            if(foundCheese.quantity === 3)
-            {
-                foundCheese.savedAmount = foundCheese.price;
-                foundCheese.offerDescription = "Buy 3 cheeses and get one for free";
-            }
-            else if(foundCheese.quantity >= 4)
-            {
                 foundCheese.savedAmount = foundCheese.price*2;
-                foundCheese.offerDescription = "Buy Over 4 cheeses and get two for free";
-            }
+                foundCheese.appliedOfferId = 3;
+        }
+        else if(foundCheese.quantity >= 2)
+        {
+            foundCheese.savedAmount = foundCheese.price;
+            foundCheese.appliedOfferId = 1
         }
     }
 }

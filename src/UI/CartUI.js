@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
-import store from "./store";
-import CartedProductItem from './Components/CartedProductItem';
+import store from "../store";
+import CartedProductItem from '../Components/CartedProductItem';
 import styled from 'styled-components';
 
 const StyledFinalPriceItem = styled(ListGroupItem)`
@@ -10,7 +10,7 @@ const StyledFinalPriceItem = styled(ListGroupItem)`
   .row {margin:10px 0px;}
   `;
 
-export class Cart extends React.Component {
+export class CartUI extends React.Component {
     state = {cartTotal:0,cartSavings:0,cartItemPriceTotal:0}
     unsubscribe = () => {};
     constructor(props) {

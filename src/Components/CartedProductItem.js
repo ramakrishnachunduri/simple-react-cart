@@ -32,6 +32,7 @@ class CartedProductItem extends React.Component {
 
   render() {
     const currentProduct = this.props.productToRender
+    const foundOffer = currentProduct.offers.find(offer => offer.offerId === currentProduct.appliedOfferId);
     return (
       <StyledListGroupItem key={currentProduct.id} className="border-1">
         <Row className="align-items-end">
@@ -48,8 +49,11 @@ class CartedProductItem extends React.Component {
           </span>
         </Col></Row>
         {currentProduct.savedAmount > 0 &&
-          <Row className="savedAmountClass"><Col sm={12}>
-             Applied {currentProduct.specialofferApplicable ? 'Special Offer' : 'Offer'}, {currentProduct.offerDescription}
+          <Row className="savedAmountClass">
+            <Col sm={12} md={6}>
+              {( foundOffer !== undefined ) ? ((foundOffer.isOfferSpecial)?'Special offer ':'Offer ') + foundOffer.offerDescription : ''}
+            </Col>
+            <Col sm={12} md={6}>
             <span className="float-end">
               Savings ${(currentProduct.savedAmount).toFixed(2)}
             </span>
