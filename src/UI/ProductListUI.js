@@ -1,6 +1,6 @@
 import React from 'react';
-import CartableProducts from '../CartableProducts';
 import ProductItem from '../Components/ProductItem';
+import CartableProducts from '../CartableProducts';
 
 export const ProductListUI = () => {
     return (
