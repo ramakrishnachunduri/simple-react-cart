@@ -53,4 +53,12 @@ export const updateSavings = (cartedProducts) => {
             foundCheese.appliedOfferId = 1
         }
     }
+
+    // has butter apply offer
+    const foundButter = cartedProducts.find(product => product.id === 5);
+    if(foundButter !== undefined )
+    {
+        foundButter.savedAmount = foundButter.price / 3;
+        foundButter.appliedOfferId = 1;
+    }
 }
