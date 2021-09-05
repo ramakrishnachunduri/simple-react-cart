@@ -5,28 +5,34 @@ export const updateSavings = (cartedProducts) => {
         return true;});
 
     //has breads check for soup
-    /*const foundBread = cartedProducts.find(product => product.id === 1);
+    const foundBread = cartedProducts.find(product => product.id === 1);
     if(foundBread !== undefined)
     {
-        const eligibleSoups = Math.floor(foundBread.quantity / 2);
         const foundSoup = cartedProducts.find(product => product.id === 4);
         if(foundSoup !== undefined)
         {
-            const specialoffer = foundBread.specialofferApplicable;
-            if(specialoffer)
+            if( foundBread.quantity === 1 && foundSoup.quantity === 1)
             {
-                foundBread.savedAmount= foundBread.price * 0.5;
-                foundBread.offerDescription = "Add a soup and get a bread at half price";
+                foundBread.savedAmount = foundBread.price * 0.5;
+                foundBread.appliedOfferId = 1
             }
-            else
+
+            if(foundBread.quantity >= 2 && foundSoup.quantity === 1)
             {
+                foundBread.savedAmount = foundBread.price * 1;
+                foundBread.appliedOfferId = 2
+            }
+
+            if(foundBread.quantity >= 2 && foundSoup.quantity > 1)
+            {
+                const eligibleSoups = Math.floor(foundBread.quantity / 2);
                 const reduceableBreads = (foundSoup.quantity<=eligibleSoups ? foundSoup.quantity : eligibleSoups );
                 foundBread.savedAmount = reduceableBreads * foundBread.price;
-                foundBread.offerDescription = "Add a soup and bread to get a bread free";
+                foundBread.appliedOfferId = 3
             }
         }
-    }*/
-
+    }
+    
     //has cheese apply offer
     const foundCheese = cartedProducts.find(product => product.id === 3);
     if(foundCheese !== undefined )
